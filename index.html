@@ -23,7 +23,14 @@
       const decodedUsername = decodeBase64(encodedUID);
       console.log("Clicked by IG username:", decodedUsername);
 
-      // OPTIONAL: send data to your Discord/Telegram webhook here
+      // OPTIONAL: you can send the decodedUsername to a webhook or server here
 
-      // Redirect to your Spotify profile
-      window.location.href
+      // ✅ Redirect to your Spotify profile
+      window.location.href = "https://open.spotify.com/user/3172geyhnfb7srlcqslk463v6c4a?si=Xf79iAaBSDCn1Ul2P6SDlQ";
+    };
+  </script>
+</head>
+<body>
+  <p>Redirecting to Spotify...</p>
+</body>
+</html>
