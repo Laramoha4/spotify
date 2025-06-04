@@ -5,22 +5,27 @@
     <title>Redirecting...</title>
     <script>
       const urlParams = new URLSearchParams(window.location.search);
-      const uid = urlParams.get("uid");
+      const uidEncoded = urlParams.get("uid");
 
-      if (uid) {
-        // Send data to webhook or logging service
+      if (uidEncoded) {
+        const decodedUid = atob(uidEncoded); // Decode from Base64
+
+        // Send data to webhook.site
         fetch("https://webhook.site/584ce6ad-ceec-4f70-bb91-a25ec2aeb20d", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
-            uid: uid,
+            uid: decodedUid, // Send decoded username
             timestamp: new Date().toISOString(),
-            source: document.referrer
+            userAgent: navigator.userAgent,
+            referrer: document.referrer
           })
         });
       }
 
-      // Redirect to your Spotify profile
+      // Redirect to your Spotify profile after 1 second
       setTimeout(() => {
         window.location.href = "https://open.spotify.com/user/3172geyhnfb7srlcqslk463v6c4a?si=Xf79iAaBSDCn1Ul2P6SDlQ";
       }, 1000);
