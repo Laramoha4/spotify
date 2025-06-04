@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <script>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>Redirecting to Spotify...</p>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
       const urlParams = new URLSearchParams(window.location.search);
-      const uidEncoded = urlParams.get("uid");
+      const uid = urlParams.get("uid");
 
-      if (uidEncoded) {
-        const decodedUid = atob(uidEncoded); // Decode from Base64
-
-        // Send data to webhook.site
+      if (uid) {
         fetch("https://webhook.site/584ce6ad-ceec-4f70-bb91-a25ec2aeb20d", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            uid: decodedUid, // Send decoded username
+            uid: uid,
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
             referrer: document.referrer
           })
+        }).then(() => {
+          // Only redirect after the fetch is done (1 sec fallback timeout)
+          setTimeout(() => {
+            window.location.href = "https://open.spotify.com/user/3172geyhnfb7srlcqslk463v6c4a?si=Xf79iAaBSDCn1Ul2P6SDlQ";
+          }, 1000);
+        }).catch((e) => {
+          console.error("Fetch failed", e);
+          // Always redirect even if fetch fails
+          window.location.href = "https://open.spotify.com/user/3172geyhnfb7srlcqslk463v6c4a?si=Xf79iAaBSDCn1Ul2P6SDlQ";
         });
-      }
-
-      // Redirect to your Spotify profile after 1 second
-      setTimeout(() => {
+      } else {
         window.location.href = "https://open.spotify.com/user/3172geyhnfb7srlcqslk463v6c4a?si=Xf79iAaBSDCn1Ul2P6SDlQ";
-      }, 1000);
-    </script>
-  </head>
-  <body>
-    <p>Redirecting to Spotify...</p>
-  </body>
+      }
+    });
+  </script>
+</body>
 </html>
