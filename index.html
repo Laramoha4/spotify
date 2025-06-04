@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting...</title>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function decodeBase64(str) {
+      try {
+        return decodeURIComponent(escape(window.atob(str)));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    window.onload = function () {
+      const encodedUID = getQueryParam("uid");
+      const decodedUsername = decodeBase64(encodedUID);
+      console.log("Clicked by IG username:", decodedUsername);
+
+      // OPTIONAL: send data to your Discord/Telegram webhook here
+
+      // Redirect to your Spotify profile
+      window.location.href
