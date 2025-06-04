@@ -15,9 +15,7 @@
       if (uid) {
         fetch("https://webhook.site/584ce6ad-ceec-4f70-bb91-a25ec2aeb20d", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: {},
           body: JSON.stringify({
             uid: uid,
             timestamp: new Date().toISOString(),
